@@ -1,0 +1,17 @@
+<header>
+  <nav>
+    <a (click)="navigateTo('')">Home</a>
+    <a (click)="navigateTo('login')">Login</a>
+    <a (click)="navigateTo('signup')">Signup</a>
+    <a (click)="navigateTo('dashboard')">Dashboard</a>
+    <a (click)="navigateTo('map')">Map</a>
+  </nav>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer>
+  <p>&copy; 2024 Ride Sharing App. All rights reserved.</p>
+</footer>

@@ -1,0 +1,30 @@
+# 🔹 Node modules (dependencies)
+node_modules/
+
+# 🔹 Angular build outputs
+dist/
+out-tsc/
+coverage/
+
+# 🔹 IDE-specific settings
+.vscode/
+.idea/
+*.code-workspace
+
+# 🔹 Logs & Temporary Files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+pnpm-lock.yaml
+
+# 🔹 Angular cache & temporary files
+.angular/
+*.tsbuildinfo
+
+# 🔹 Environment & Secret Configs
+src/environments/environment.ts
+src/environments/environment.prod.ts
+firebase.json
+
+

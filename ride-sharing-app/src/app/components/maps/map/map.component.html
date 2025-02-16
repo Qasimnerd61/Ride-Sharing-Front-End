@@ -1,0 +1,34 @@
+<div class="container">
+    <h1>Ride Sharing App</h1>
+  
+    <!-- Input for Pickup Location -->
+    <div class="form-group">
+      <label for="pickup">Pickup Location:</label>
+      <input
+        id="pickup"
+        type="text"
+        placeholder="Enter pickup location"
+        class="form-control"
+      />
+    </div>
+  
+    <!-- Input for Dropoff Location -->
+    <div class="form-group">
+      <label for="dropoff">Dropoff Location:</label>
+      <input
+        id="dropoff"
+        type="text"
+        placeholder="Enter dropoff location"
+        class="form-control"
+      />
+    </div>
+  
+    <!-- Button to Calculate Route -->
+    <button class="btn btn-primary" (click)="calculateRoute()">
+      Calculate Route
+    </button>
+  
+    <!-- Map Container -->
+    <div id="map" style="height: 500px; margin-top: 20px;"></div>
+  </div>
+  
