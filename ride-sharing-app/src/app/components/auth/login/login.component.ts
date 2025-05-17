@@ -23,15 +23,8 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       
       
-      // this.authService.login(this.loginForm.value).subscribe({
-      //   next: (res) => {
-      //     console.log('Login Success:', res);
-      //     // Store token or navigate
-      //   },
-      //   error: (err) => {
-      //     console.error('Login Failed:', err);
-      //   }
-      // });
+     
     }
+    
   }
 }
