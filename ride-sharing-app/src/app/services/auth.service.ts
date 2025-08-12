@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
 import { SignupRequest } from '../models/user-info-request.model';
+import { LoginRequest } from '../models/login-request.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:7097/api/auth';
+  private apiUrl = 'http://localhost:5236/api/auth';
   constructor(private http: HttpClient) { }
 
   signup(user: SignupRequest): Observable<number> {
@@ -20,6 +22,10 @@ export class AuthService {
         return throwError(() => new Error(error.message)); // Return error observable
       })
     );
+  }
+
+   login(request: LoginRequest): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/login`, request);
   }
 
   googleSignIn(): Promise<void> {

@@ -22,8 +22,15 @@ export class SignupComponent {
       fName: ['', [Validators.required, Validators.minLength(1)]],
       lName: ['', [Validators.required, Validators.minLength(1)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-      // confirmPassword: ['', [Validators.required]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      phoneNo: [
+    '',
+    [
+      Validators.required,
+      Validators.pattern('^[0-9]{10,15}$'),
+      Validators.minLength(10)
+    ]
+  ]
     });
   }
 

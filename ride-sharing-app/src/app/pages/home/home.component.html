@@ -1,14 +1,41 @@
 <section class="home">
+  <div class="header">
+    <div class="user-info" *ngIf="isLoggedIn">
+      Welcome, {{ userName }} | <button (click)="logout()">Logout</button>
+    </div>
+  </div>
     <h1>{{ title }}</h1>
     <p>
       Share rides and reduce your travel costs! 
       Join us today to find companions traveling along your route.
     </p>
-    
-    <div class="actions">
+    @if(!isLoggedIn) {
+      <div class="actions">
       <a (click)="navigateTo('signup')" class="button">Sign Up</a>
       <a (click)="navigateTo('login')" class="button">Login</a>
     </div>
+    }
+    <div class="role-selection">
+  <h3>Select your role:</h3>
+  <form [formGroup]="roleForm">
+    <label>
+      <input type="radio" formControlName="role" value="Driver" /> Driver
+    </label>
+    <label>
+      <input type="radio" formControlName="role" value="Passenger" /> Passenger
+    </label>
+  </form>
+</div>
+
+<div *ngIf="selectedRole === 'Driver'">
+  <!-- Show driver options -->
+  <p>You are acting as a <strong>Driver</strong>.</p>
+</div>
+<div *ngIf="selectedRole === 'Passenger'">
+  <!-- Show passenger options -->
+  <p>You are acting as a <strong>Passenger</strong>.</p>
+</div>
+    
     
     <div class="map-preview">
       <h3>Explore Our Map</h3>

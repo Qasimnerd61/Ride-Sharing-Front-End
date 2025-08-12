@@ -19,6 +19,24 @@
           <span *ngIf="f['lName'].errors?.minlength">Last Name must be at least 1 characters</span>
         </div>
       </div>
+
+      <div class="form-group">
+        <label for="phoneNo">Phone Number</label>
+        <input type="text" id="phoneNo" formControlName="phoneNo" placeholder="Enter your mobile number" class="form-control"
+          maxlength="15" />
+      
+        <div *ngIf="f['phoneNo'].touched && f['phoneNo'].invalid">
+          <small class="text-danger" *ngIf="f['phoneNo'].errors?.['required']">
+            Phone Number is required
+          </small>
+          <small class="text-danger" *ngIf="f['phoneNo'].errors?.['pattern']">
+            Phone Number must be valid (digits only)
+          </small>
+          <small class="text-danger" *ngIf="f['phoneNo'].errors?.['minlength']">
+            Phone Number must be at least 10 digits
+          </small>
+        </div>
+      </div>
   
       <div class="form-group">
         <label for="email">Email</label>
