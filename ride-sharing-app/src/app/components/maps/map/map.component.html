@@ -1,34 +1,87 @@
-<div class="container">
-    <h1>Ride Sharing App</h1>
-  
-    <!-- Input for Pickup Location -->
-    <div class="form-group">
-      <label for="pickup">Pickup Location:</label>
-      <input
-        id="pickup"
-        type="text"
-        placeholder="Enter pickup location"
-        class="form-control"
-      />
-    </div>
-  
-    <!-- Input for Dropoff Location -->
-    <div class="form-group">
-      <label for="dropoff">Dropoff Location:</label>
-      <input
-        id="dropoff"
-        type="text"
-        placeholder="Enter dropoff location"
-        class="form-control"
-      />
-    </div>
-  
-    <!-- Button to Calculate Route -->
-    <button class="btn btn-primary" (click)="calculateRoute()">
-      Calculate Route
-    </button>
-  
-    <!-- Map Container -->
-    <div id="map" style="height: 500px; margin-top: 20px;"></div>
+<!-- RIDE-SHARING APP HEADER -->
+<div class="container ride-sharing-container">
+  <h1 class="app-title">Ride Sharing App</h1>
+  <div style="text-align: right; margin: 20px 0;">
+  <button class="btn btn-outline-primary" (click)="searchAgain()">
+    {{ role === 'Passenger' ? '🔍 Search for Available Rides' : '🔍 Check Pending Ride Requests' }}
+  </button>
+</div>
+  <!-- Pickup & Dropoff Inputs -->
+  <div class="form-group">
+    <label for="pickup">Pickup Location:</label>
+    <input id="pickup" type="text" placeholder="Enter pickup location" class="form-control location-input" />
   </div>
-  
+
+  <div class="form-group">
+    <label for="dropoff">Dropoff Location:</label>
+    <input id="dropoff" type="text" placeholder="Enter dropoff location" class="form-control location-input" />
+  </div>
+
+  <!-- Button to Calculate Route -->
+  <button class="btn btn-primary calculate-route-btn" (click)="calculateRoute()">Calculate Route</button>
+
+  <!-- Map Container -->
+  <div id="map" style="height: 500px; margin-top: 20px;"></div>
+
+  <!-- 🚗 Available Rides for PASSENGER -->
+  <div *ngIf="role === 'Passenger' && availableRides?.length > 0" class="available-rides">
+    <h3 class="available-rides-title">Available Driver Rides</h3>
+    <ul class="available-rides-list">
+      <li class="available-ride-item" *ngFor="let ride of availableRides">
+        <div class="ride-locations">
+          <strong>Route:</strong>
+          <span class="location-name">{{ ride.pickupLocationName }}</span>
+          →
+          <span class="location-name">{{ ride.dropoffLocationName }}</span>
+        </div>
+        <div><strong>Departure:</strong> {{ ride.departureTime | date: 'short' }}</div>
+        <div><strong>Available Seats:</strong> {{ ride.availableSeats }}</div>
+         <div><strong>Phone Number:</strong> {{ ride.phoneNumber }}</div>
+         <div *ngIf="ride.matchStatus">
+  <strong>Match Status:</strong>
+  <span [ngClass]="{
+    'text-success': ride.matchStatus === 'Accepted',
+    'text-danger': ride.matchStatus === 'Rejected',
+    'text-warning': ride.matchStatus === 'Pending'
+  }">
+    {{ ride.matchStatus }}
+  </span>
+</div>
+        <div>
+          <strong>Status:</strong>
+          <span [class.active-status]="ride.status === 'Active'" [class.inactive-status]="ride.status !== 'Active'">
+            {{ ride.status }}
+          </span>
+        </div>
+        <div class="ride-actions" style="margin-top: 10px;">
+          <button class="btn btn-success" (click)="requestRide(ride.rideId)">Request Ride</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 🚘 Pending Ride Requests for DRIVER -->
+  <div *ngIf="role === 'Driver' && pendingRequests?.length > 0" class="pending-requests">
+    <h3 class="available-rides-title">Pending Ride Requests</h3>
+    <ul class="available-rides-list">
+      <li class="available-ride-item" *ngFor="let req of pendingRequests">
+        <div class="ride-locations">
+          <strong>Passenger:</strong> {{ req.passengerName }}
+        </div>
+        <div><strong>Route:</strong> {{ req.passengerPickup }} → {{ req.passengerDropoff }}</div>
+        <div><strong>Fare:</strong> {{ req.fare ?? 'N/A' }}</div>
+        <div><strong>Requested At:</strong> {{ req.requestedAt | date: 'short' }}</div>
+        <div><strong>Phone Number:</strong> {{ req.phoneNumber  }}</div>
+        <div class="ride-actions" style="margin-top: 10px;">
+          <button class="btn btn-success" (click)="acceptRequest(req.matchId,req.phoneNumber)">Accept</button>
+          <button class="btn btn-danger" (click)="rejectRequest(req.matchId)">Reject</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- No Matching Rides -->
+  <div *ngIf="role === 'Passenger' && availableRides && availableRides.length === 0" class="no-matching-rides">
+    <p>No matching driver rides found.</p>
+  </div>
+</div>
