@@ -1,20 +1,39 @@
-<div class="login-container">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <h2>Login</h2>
-  
-      <label>Email:</label>
-      <input type="email" formControlName="email" />
-      <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-        Valid email is required.
+<div class="auth-page">
+  <div class="brand-panel">
+    <div class="brand-mark">RS</div>
+    <h1>Ride Sharing</h1>
+    <p>Log in to book a ride, track drivers in real-time, and manage your trips effortlessly.</p>
+  </div>
+
+  <div class="login-card">
+    <div class="card-header">
+      <div class="logo">🚗</div>
+      <div>
+        <h2>Welcome back</h2>
+        <p>Sign in to continue your journey</p>
       </div>
-  
-      <label>Password:</label>
-      <input type="password" formControlName="password" />
-      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <label for="email">Email</label>
+      <div class="input-field" [class.error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        <input id="email" type="email" formControlName="email" placeholder="you@example.com" />
+      </div>
+      <div class="hint" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        Please enter a valid email address.
+      </div>
+
+      <label for="password">Password</label>
+      <div class="input-field" [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        <input id="password" type="password" formControlName="password" placeholder="Enter your password" />
+      </div>
+      <div class="hint" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
         Password is required.
       </div>
-  
-      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+
+      <button class="primary-btn" type="submit" [disabled]="loginForm.invalid">Login</button>
     </form>
+
+    <p class="footer-text">Don't have an account? <a routerLink="/signup">Create one</a></p>
   </div>
-  
+</div>
